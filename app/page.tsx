@@ -139,7 +139,11 @@ export default function Home() {
 
       {/* Header - Shows on scroll up, hides on scroll down */}
       <header
-        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-500 ease-out backdrop-blur-md rounded-full bg-white/80 ${
+        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-500 ease-out rounded-full ${
+          isMobileMenuOpen
+            ? "bg-transparent backdrop-blur-none"
+            : "backdrop-blur-md bg-white/80"
+        } ${
           isNavVisible
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-full pointer-events-none"
@@ -379,10 +383,11 @@ export default function Home() {
                 <div className="h-130 relative overflow-hidden rounded-sm border-black border-gray-300">
                   <video
                     src={feature.video}
+                    autoPlay
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="auto"
                     className="absolute inset-0 w-full h-full object-cover"
                     style={{ objectPosition: "75% 10%" }}
                   />
@@ -414,55 +419,56 @@ export default function Home() {
               Upload, analyze, and understand in under 60 seconds
             </p>
           </div>
+        </div>
 
-          <div className="max-w-4xl mx-auto">
-            {/* Top border */}
-            <div className="border-t border-gray-300" />
+        {/* Full-width steps on desktop */}
+        <div className="w-full">
+          {/* Top border */}
+          <div className="border-t border-gray-300" />
 
-            {/* Step 1 */}
-            <div className="group relative flex items-center justify-between px-4 md:px-8 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default gap-4">
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
-                1.
+          {/* Step 1 */}
+          <div className="group relative flex items-center justify-between px-6 md:px-16 lg:px-24 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default gap-4">
+            <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
+              1.
+            </span>
+            <span className="flex-1 text-center hidden md:block">
+              <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                Take a photo or upload a PDF of your lease agreement
               </span>
-              <span className="flex-1 text-center hidden md:block">
-                <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  Take a photo or upload a PDF of your lease agreement
-                </span>
-              </span>
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
-                UPLOAD
-              </span>
-            </div>
+            </span>
+            <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
+              UPLOAD
+            </span>
+          </div>
 
-            {/* Step 2 */}
-            <div className="group relative flex items-center justify-between px-4 md:px-8 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default gap-4">
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
-                2.
+          {/* Step 2 */}
+          <div className="group relative flex items-center justify-between px-6 md:px-16 lg:px-24 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default gap-4">
+            <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
+              2.
+            </span>
+            <span className="flex-1 text-center hidden md:block">
+              <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                Our AI reads every word and identifies red flags
               </span>
-              <span className="flex-1 text-center hidden md:block">
-                <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  Our AI reads every word and identifies red flags
-                </span>
-              </span>
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
-                ANALYZE
-              </span>
-            </div>
+            </span>
+            <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
+              ANALYZE
+            </span>
+          </div>
 
-            {/* Step 3 */}
-            <div className="group relative flex items-center justify-between px-4 md:px-8 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default gap-4">
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
-                3.
+          {/* Step 3 */}
+          <div className="group relative flex items-center justify-between px-6 md:px-16 lg:px-24 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default gap-4">
+            <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
+              3.
+            </span>
+            <span className="flex-1 text-center hidden md:block">
+              <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                Get a detailed breakdown with actionable recommendations
               </span>
-              <span className="flex-1 text-center hidden md:block">
-                <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  Get a detailed breakdown with actionable recommendations
-                </span>
-              </span>
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
-                PROTECT
-              </span>
-            </div>
+            </span>
+            <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
+              PROTECT
+            </span>
           </div>
         </div>
       </section>

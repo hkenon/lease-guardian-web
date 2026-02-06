@@ -35,10 +35,14 @@ export default function TermsOfService() {
 
       {/* Header */}
       <header
-        className={`fixed top-4 left-4 right-4 z-50 transition-opacity duration-300 ${
+        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-full ${
+          isMobileMenuOpen
+            ? "bg-transparent backdrop-blur-none"
+            : "backdrop-blur-md bg-white/80"
+        } ${
           isScrolled
             ? "opacity-0 pointer-events-none"
-            : "backdrop-blur-md rounded-full bg-white/80"
+            : "opacity-100"
         }`}
       >
         <nav className="px-6 md:px-12 py-4 flex justify-between items-center">

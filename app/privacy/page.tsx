@@ -35,17 +35,21 @@ export default function PrivacyPolicy() {
 
       {/* Header - matching main page */}
       <header
-        className={`fixed top-4 left-4 right-4 z-50 transition-opacity duration-300 ${
+        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-full ${
+          isMobileMenuOpen
+            ? "bg-transparent backdrop-blur-none"
+            : "backdrop-blur-md bg-white/80"
+        } ${
           isScrolled
             ? "opacity-0 pointer-events-none"
-            : "backdrop-blur-md rounded-full bg-white/80"
+            : "opacity-100"
         }`}
       >
         <nav className="px-6 md:px-12 py-4 flex justify-between items-center">
           <div className="w-[55px]">
             {/* Spacer for logo */}
           </div>
-          <div className="hidden md:flex space-x-8 flex-1 justify-center">
+          <div className="hidden md:flex flex-1 justify-evenly items-center">
             <Link
               href="/#features"
               className="text-gray-900 hover:text-gray-600 transition-all duration-300"
