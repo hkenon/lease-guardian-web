@@ -106,3 +106,20 @@ body {
 .animate-twinkle {
   animation: twinkle 1.5s ease-in-out infinite;
 }
+
+/* Landscape mode adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  .landscape\:pt-20 {
+    padding-top: 5rem;
+  }
+
+  /* Make hero section scrollable in landscape */
+  .min-h-\[100svh\] {
+    min-height: auto;
+  }
+}
+
+/* Video card height */
+.h-130 {
+  height: 32rem;
+}

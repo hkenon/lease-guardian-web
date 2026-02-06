@@ -279,8 +279,8 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col bg-white">
-        <div className="flex-1 flex flex-col justify-center pt-28 md:pt-16">
+      <section className="relative min-h-[100svh] flex flex-col bg-white">
+        <div className="flex-1 flex flex-col justify-center pt-28 md:pt-16 landscape:pt-20">
           {/* Quote */}
           <div className="text-center mb-8 px-6">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3">
@@ -363,6 +363,16 @@ export default function Home() {
                 const video = e.currentTarget.querySelector("video");
                 if (video) video.pause();
               }}
+              onClick={(e) => {
+                const video = e.currentTarget.querySelector("video");
+                if (video) {
+                  if (video.paused) {
+                    video.play();
+                  } else {
+                    video.pause();
+                  }
+                }
+              }}
             >
               {/* White frame padding around video */}
               <div className="p-3">
@@ -372,6 +382,7 @@ export default function Home() {
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     className="absolute inset-0 w-full h-full object-cover"
                     style={{ objectPosition: "75% 10%" }}
                   />
@@ -393,7 +404,7 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20 bg-white overflow-x-hidden">
+      <section id="how-it-works" className="py-20 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -404,51 +415,51 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="w-screen -mx-6 md:-mx-[calc((100vw-72rem)/2+1.5rem)]">
+          <div className="max-w-4xl mx-auto">
             {/* Top border */}
             <div className="border-t border-gray-300" />
 
             {/* Step 1 */}
-            <div className="group relative flex items-center px-6 md:px-12 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default">
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0 w-12">
+            <div className="group relative flex items-center justify-between px-4 md:px-8 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default gap-4">
+              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
                 1.
               </span>
-              <span className="flex-1 text-center">
-                <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:inline">
+              <span className="flex-1 text-center hidden md:block">
+                <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300">
                   Take a photo or upload a PDF of your lease agreement
                 </span>
               </span>
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0 text-right">
+              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
                 UPLOAD
               </span>
             </div>
 
             {/* Step 2 */}
-            <div className="group relative flex items-center px-6 md:px-12 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default">
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0 w-12">
+            <div className="group relative flex items-center justify-between px-4 md:px-8 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default gap-4">
+              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
                 2.
               </span>
-              <span className="flex-1 text-center">
-                <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:inline">
+              <span className="flex-1 text-center hidden md:block">
+                <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300">
                   Our AI reads every word and identifies red flags
                 </span>
               </span>
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0 text-right">
+              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
                 ANALYZE
               </span>
             </div>
 
             {/* Step 3 */}
-            <div className="group relative flex items-center px-6 md:px-12 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default">
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0 w-12">
+            <div className="group relative flex items-center justify-between px-4 md:px-8 py-4 border-b border-gray-300 hover:bg-gray-900 transition-all duration-300 cursor-default gap-4">
+              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
                 3.
               </span>
-              <span className="flex-1 text-center">
-                <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:inline">
+              <span className="flex-1 text-center hidden md:block">
+                <span className="text-sm text-gray-500 group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-300">
                   Get a detailed breakdown with actionable recommendations
                 </span>
               </span>
-              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0 text-right">
+              <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
                 PROTECT
               </span>
             </div>
