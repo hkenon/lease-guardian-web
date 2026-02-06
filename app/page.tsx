@@ -359,24 +359,6 @@ export default function Home() {
             <div
               key={index}
               className="bg-white text-center rounded-md border border-gray-200 transition-all duration-300 flex flex-col"
-              onMouseEnter={(e) => {
-                const video = e.currentTarget.querySelector("video");
-                if (video) video.play();
-              }}
-              onMouseLeave={(e) => {
-                const video = e.currentTarget.querySelector("video");
-                if (video) video.pause();
-              }}
-              onClick={(e) => {
-                const video = e.currentTarget.querySelector("video");
-                if (video) {
-                  if (video.paused) {
-                    video.play();
-                  } else {
-                    video.pause();
-                  }
-                }
-              }}
             >
               {/* White frame padding around video */}
               <div className="p-3">
