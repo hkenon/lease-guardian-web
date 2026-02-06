@@ -569,19 +569,31 @@ export default function Home() {
             </svg>
           </button>
 
-          {/* Screenshot Display - Card Stack */}
+          {/* Screenshot Display - Circular Card Stack */}
           <div className="flex flex-col items-center">
             {/* Label */}
             <p className="text-gray-900 font-medium text-lg mb-4">
               {appScreenshots[currentPreviewIndex].label}
             </p>
-            {/* Card Stack */}
+            {/* Circular Card Stack */}
             <div className="relative h-[70vh] w-full flex justify-center">
               {appScreenshots.map((screenshot, index) => {
-                const offset = index - currentPreviewIndex;
+                // Calculate circular offset (wraps around)
+                const totalItems = appScreenshots.length;
+                let offset = index - currentPreviewIndex;
+
+                // Wrap around for circular effect
+                if (offset > totalItems / 2) offset -= totalItems;
+                if (offset < -totalItems / 2) offset += totalItems;
+
                 const isVisible = Math.abs(offset) <= 2;
 
                 if (!isVisible) return null;
+
+                // Calculate rotation for fan/arc effect
+                const rotation = offset * 8;
+                const xOffset = offset * 80;
+                const yOffset = Math.abs(offset) * 15;
 
                 return (
                   <div
@@ -589,12 +601,15 @@ export default function Home() {
                     className="absolute transition-all duration-500 ease-out cursor-pointer"
                     style={{
                       transform: `
-                        translateX(${offset * 60}px)
-                        scale(${1 - Math.abs(offset) * 0.08})
+                        translateX(${xOffset}px)
+                        translateY(${yOffset}px)
+                        rotate(${rotation}deg)
+                        scale(${1 - Math.abs(offset) * 0.1})
                       `,
                       zIndex: 10 - Math.abs(offset),
-                      opacity: 1 - Math.abs(offset) * 0.3,
-                      filter: offset !== 0 ? "brightness(0.8)" : "none",
+                      opacity: 1 - Math.abs(offset) * 0.35,
+                      filter: offset !== 0 ? "brightness(0.85)" : "none",
+                      transformOrigin: "center bottom",
                     }}
                     onClick={() => setCurrentPreviewIndex(index)}
                   >
