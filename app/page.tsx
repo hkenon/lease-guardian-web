@@ -73,19 +73,35 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+    let ticking = false;
 
-      // Show nav when scrolling up or at the top
-      if (currentScrollY < lastScrollY.current || currentScrollY < 50) {
-        setIsNavVisible(true);
-      } else if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        // Hide nav when scrolling down past 100px
-        setIsNavVisible(false);
+    const updateNavVisibility = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY.current;
+
+      // Only update if scroll delta is significant (prevents jitter)
+      if (Math.abs(scrollDelta) > 5) {
+        if (scrollDelta < 0 || currentScrollY < 100) {
+          // Scrolling UP or near top - show nav
+          setIsNavVisible(true);
+        } else if (scrollDelta > 0 && currentScrollY > 150) {
+          // Scrolling DOWN past threshold - hide nav
+          setIsNavVisible(false);
+        }
+        lastScrollY.current = currentScrollY;
       }
 
-      lastScrollY.current = currentScrollY;
+      ticking = false;
     };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateNavVisibility);
+        ticking = true;
+      }
+    };
+
+
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -139,14 +155,14 @@ export default function Home() {
 
       {/* Header - Shows on scroll up, hides on scroll down */}
       <header
-        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-500 ease-out rounded-full ${
+        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 ease-out rounded-md ${
           isMobileMenuOpen
             ? "bg-transparent backdrop-blur-none"
             : "backdrop-blur-md bg-white/80"
         } ${
           isNavVisible
             ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-full pointer-events-none"
+            : "opacity-0 -translate-y-[calc(100%+2rem)] pointer-events-none"
         }`}
       >
         <nav className="px-6 md:px-12 py-4 flex justify-between items-center">
@@ -314,6 +330,7 @@ export default function Home() {
                     src={item.src}
                     alt={item.label}
                     fill
+                    sizes="320px"
                     className="object-cover"
                     priority={index < 5}
                   />
@@ -496,6 +513,7 @@ export default function Home() {
                   src="/star.png"
                   alt="Star"
                   fill
+                  sizes="20vw"
                   className="object-contain"
                 />
               </div>
@@ -618,6 +636,7 @@ export default function Home() {
                         src={screenshot.src}
                         alt={screenshot.alt}
                         fill
+                        sizes="(max-width: 768px) 50vw, 33vw"
                         className="object-contain bg-white"
                       />
                     </div>
@@ -702,15 +721,10 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="#how-it-works"
+                    href="#preview"
                     className="hover:text-white transition"
                   >
                     How It Works
-                  </a>
-                </li>
-                <li>
-                  <a href="#download" className="hover:text-white transition">
-                    Download
                   </a>
                 </li>
               </ul>
