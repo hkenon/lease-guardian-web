@@ -272,20 +272,20 @@ export default function Home() {
         id="main-content"
         className="relative h-[100svh] flex flex-col bg-white overflow-hidden"
       >
-        <div className="flex-1 flex flex-col justify-center min-h-0">
+        <div className="flex-1 flex flex-col justify-center min-h-0 py-4 md:py-0">
           {/* Quote */}
-          <div className="text-center mb-4 md:mb-8 px-6 flex-shrink-0">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-2 md:mb-3">
+          <div className="text-center mb-3 md:mb-8 px-6 flex-shrink-0">
+            <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-2 md:mb-3">
               {'"'}Understand your lease before it costs you.{'"'}
             </h1>
-            <p className="text-lg text-gray-700">
+            <p className="text-base md:text-lg text-gray-700">
               Upload your lease and get instant, plain-English explanations of
               the fine print.
             </p>
           </div>
 
           {/* Moving Banner - Full viewport width */}
-          <div className="relative w-screen overflow-hidden mb-6 flex-shrink-0">
+          <div className="relative w-screen overflow-hidden mb-3 md:mb-6 flex-shrink-0">
             {/* Gradient masks for smooth edges */}
             <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
@@ -295,7 +295,7 @@ export default function Home() {
               {[...bannerImages, ...bannerImages].map((item, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-[45vw] h-[35vh] md:w-[25vw] md:h-[40vh] mx-2 rounded-2xl overflow-hidden relative"
+                  className="flex-shrink-0 w-[40vw] h-[25vh] md:w-[25vw] md:h-[40vh] mx-2 rounded-2xl overflow-hidden relative"
                   style={{ backgroundColor: item.color }}
                 >
                   <Image
@@ -313,7 +313,7 @@ export default function Home() {
 
           {/* Subtext */}
           <div className="text-center px-6 flex-shrink-0">
-            <p className="text-lg md:text-2xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-base md:text-2xl text-gray-700 max-w-3xl mx-auto">
               AI-powered lease analysis that protects you from hidden traps,
               unfair terms, and costly surprises. Know what you{"'"}re signing
               before it{"'"}s too late.
