@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import {
   ShieldCheckIcon,
   MagnifyingGlassIcon,
@@ -11,9 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 export default function Home() {
-  const [isNavVisible, setIsNavVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const lastScrollY = useRef(0);
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0);
 
   const appScreenshots = [
@@ -47,65 +45,30 @@ export default function Home() {
   const bannerImages = [
     {
       src: "/pexels-kindelmedia-7578992.jpg",
-      label: "Slide 1",
+      alt: "Person reviewing rental documents",
       color: "#ef4444",
     },
     {
       src: "/pexels-loquellano-9844321.jpg",
-      label: "Slide 2",
+      alt: "Apartment building exterior",
       color: "#3b82f6",
     },
     {
       src: "/pexels-energepic-com-27411-175045.jpg",
-      label: "Slide 3",
+      alt: "Person signing paperwork",
       color: "#22c55e",
     },
     {
       src: "/chris-liverani-9cd8qOgeNIY-unsplash.jpg",
-      label: "Slide 4",
+      alt: "Financial charts and data analysis",
       color: "#f59e0b",
     },
     {
       src: "/charles-forerunner-3fPXt37X6UQ-unsplash.jpg",
-      label: "Slide 5",
+      alt: "Modern apartment interior",
       color: "#8b5cf6",
     },
   ];
-
-  useEffect(() => {
-    let ticking = false;
-
-    const updateNavVisibility = () => {
-      const currentScrollY = window.scrollY;
-      const scrollDelta = currentScrollY - lastScrollY.current;
-
-      // Only update if scroll delta is significant (prevents jitter)
-      if (Math.abs(scrollDelta) > 5) {
-        if (scrollDelta < 0 || currentScrollY < 100) {
-          // Scrolling UP or near top - show nav
-          setIsNavVisible(true);
-        } else if (scrollDelta > 0 && currentScrollY > 150) {
-          // Scrolling DOWN past threshold - hide nav
-          setIsNavVisible(false);
-        }
-        lastScrollY.current = currentScrollY;
-      }
-
-      ticking = false;
-    };
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateNavVisibility);
-        ticking = true;
-      }
-    };
-
-
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const features = [
     {
@@ -140,64 +103,63 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
-      {/* Header */}
-      {/* Sticky Logo - always visible */}
-      <Link href="/" className="fixed top-5 left-6 md:left-10 z-[60]">
-        <Image
-          src="/TPLogo.png"
-          alt="Lease Decoder Logo"
-          width={50}
-          height={50}
-          className="object-contain"
-          priority
-        />
-      </Link>
+      {/* Skip to main content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-black focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
+      >
+        Skip to main content
+      </a>
 
-      {/* Header - Shows on scroll up, hides on scroll down */}
+      {/* Header */}
       <header
-        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 ease-out rounded-md ${
-          isMobileMenuOpen
-            ? "bg-transparent backdrop-blur-none"
-            : "backdrop-blur-md bg-white/80"
-        } ${
-          isNavVisible
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-[calc(100%+2rem)] pointer-events-none"
+        className={`mx-4 mt-4 rounded-md ${
+          isMobileMenuOpen ? "bg-transparent" : "backdrop-blur-md bg-white/70"
         }`}
       >
         <nav className="px-6 md:px-12 py-4 flex justify-between items-center">
-          <div className="w-[55px]">{/* Spacer for logo */}</div>
+          <Link href="/">
+            <Image
+              src="/TPLogo.png"
+              alt="Lease Decoder Logo"
+              width={45}
+              height={45}
+              className="object-contain"
+              priority
+            />
+          </Link>
           <div className="hidden md:flex flex-1 justify-evenly items-center">
             <a
               href="#features"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300"
+              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
             >
               Features
             </a>
             <a
               href="#how-it-works"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300"
+              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
             >
               Overview
             </a>
             <a
               href="#testimonials"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300"
+              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
             >
               Testimonials
             </a>
             <Image
               src="/HLogoB.png"
-              alt="Logo"
+              alt=""
               width={24}
               height={24}
               className="object-contain"
+              aria-hidden="true"
             />
           </div>
           <div className="flex items-center gap-4">
             <a
               href="#download"
-              className="hidden md:inline-block bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300"
+              className="hidden md:inline-block bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
             >
               Download
             </a>
@@ -205,7 +167,9 @@ export default function Home() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-gray-900"
-              aria-label="Toggle menu"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               <svg
                 className="w-6 h-6"
@@ -240,10 +204,15 @@ export default function Home() {
           isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsMobileMenuOpen(false)}
+        aria-hidden="true"
       />
 
       {/* Mobile Menu */}
       <div
+        id="mobile-menu"
+        role="dialog"
+        aria-label="Navigation menu"
+        aria-hidden={!isMobileMenuOpen}
         className={`fixed top-0 right-0 h-full w-64 bg-white z-50 md:hidden transform transition-transform duration-300 ease-out shadow-xl ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -299,21 +268,24 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[100svh] flex flex-col bg-white">
-        <div className="flex-1 flex flex-col justify-center pt-28 md:pt-16 landscape:pt-20">
+      <section
+        id="main-content"
+        className="relative h-[100svh] flex flex-col bg-white overflow-hidden"
+      >
+        <div className="flex-1 flex flex-col justify-center pt-20 md:pt-8 landscape:pt-12 min-h-0">
           {/* Quote */}
-          <div className="text-center mb-8 px-6">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3">
+          <div className="text-center mb-4 md:mb-8 px-6 flex-shrink-0">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-2 md:mb-3">
               {'"'}Understand your lease before it costs you.{'"'}
             </h1>
-            <p className="text-lg text-gray-500">
+            <p className="text-lg text-gray-700">
               Upload your lease and get instant, plain-English explanations of
               the fine print.
             </p>
           </div>
 
           {/* Moving Banner - Full viewport width */}
-          <div className="relative w-screen overflow-hidden mb-12">
+          <div className="relative w-screen overflow-hidden mb-6 flex-shrink-0">
             {/* Gradient masks for smooth edges */}
             <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
@@ -323,12 +295,12 @@ export default function Home() {
               {[...bannerImages, ...bannerImages].map((item, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-80 h-96 mx-2 rounded-2xl overflow-hidden relative"
+                  className="flex-shrink-0 w-64 h-72 md:w-80 md:h-96 mx-2 rounded-2xl overflow-hidden relative"
                   style={{ backgroundColor: item.color }}
                 >
                   <Image
                     src={item.src}
-                    alt={item.label}
+                    alt={item.alt}
                     fill
                     sizes="320px"
                     className="object-cover"
@@ -340,8 +312,8 @@ export default function Home() {
           </div>
 
           {/* Subtext */}
-          <div className="text-center px-6">
-            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+          <div className="text-center px-6 flex-shrink-0">
+            <p className="text-lg md:text-2xl text-gray-700 max-w-3xl mx-auto">
               AI-powered lease analysis that protects you from hidden traps,
               unfair terms, and costly surprises. Know what you{"'"}re signing
               before it{"'"}s too late.
@@ -350,10 +322,10 @@ export default function Home() {
         </div>
 
         {/* See How It Works - Bottom of viewport */}
-        <div className="pb-4 text-center mt-auto">
+        <div className="pb-6 text-center flex-shrink-0">
           <a
             href="#preview"
-            className="inline-block text-gray-900 px-8 py-4 text-lg font-semibold hover:text-gray-600 transition animate-bounce"
+            className="inline-block text-gray-900 px-8 py-3 text-lg font-semibold hover:text-gray-600 transition animate-bounce"
           >
             See How It Works
           </a>
@@ -366,7 +338,7 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Your AI-Powered Lease Protector
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-700">
             Everything you need to understand your lease
           </p>
         </div>
@@ -414,7 +386,7 @@ export default function Home() {
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               3 Simple Steps to Protection
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-700">
               Upload, analyze, and understand in under 60 seconds
             </p>
           </div>
@@ -436,7 +408,7 @@ export default function Home() {
               </span>
             </span>
             <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
-              UPLOAD
+              UPLOAD.
             </span>
           </div>
 
@@ -451,7 +423,7 @@ export default function Home() {
               </span>
             </span>
             <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
-              ANALYZE
+              ANALYZE.
             </span>
           </div>
 
@@ -466,19 +438,26 @@ export default function Home() {
               </span>
             </span>
             <span className="text-xl font-bold text-gray-900 group-hover:text-white transition-colors flex-shrink-0">
-              PROTECT
+              PROTECT.
             </span>
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-20 bg-white" style={{ overflow: "visible" }}>
+      <section
+        id="testimonials"
+        className="py-20 bg-white"
+        style={{ overflow: "visible" }}
+      >
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Trusted by Thousands of Renters
+              Built to Protect Renters
             </h2>
+            <p className="text-xl text-gray-700">
+              From confusion to clarity — shared by real users.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -501,17 +480,18 @@ export default function Home() {
         </div>
 
         {/* Full-width 5 Stars */}
-        <div className="w-screen mt-16">
+        <div className="w-screen mt-16" role="img" aria-label="5 star rating">
           <div className="flex justify-center -space-x-4">
             {[...Array(5)].map((_, i) => (
               <div
                 key={i}
                 className="relative w-[20vw] h-[15vw] animate-twinkle"
                 style={{ animationDelay: `${i * 0.3}s` }}
+                aria-hidden="true"
               >
                 <Image
                   src="/star.png"
-                  alt="Star"
+                  alt=""
                   fill
                   sizes="20vw"
                   className="object-contain"
@@ -529,7 +509,7 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             How It Works
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
             A sneak peek at how Lease Decoder protects you from unfair lease
             terms and hidden fees.
           </p>
@@ -544,7 +524,7 @@ export default function Home() {
                 prev === 0 ? appScreenshots.length - 1 : prev - 1,
               )
             }
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
             aria-label="Previous screenshot"
           >
             <svg
@@ -569,7 +549,7 @@ export default function Home() {
                 prev === appScreenshots.length - 1 ? 0 : prev + 1,
               )
             }
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
             aria-label="Next screenshot"
           >
             <svg
@@ -608,26 +588,18 @@ export default function Home() {
 
                 if (!isVisible) return null;
 
-                // Calculate rotation for fan/arc effect
-                const rotation = offset * 8;
-                const xOffset = offset * 80;
-                const yOffset = Math.abs(offset) * 15;
+                // Straight stack - no rotation
+                const xOffset = offset * 60;
 
                 return (
                   <div
                     key={index}
                     className="absolute transition-all duration-500 ease-out cursor-pointer"
                     style={{
-                      transform: `
-                        translateX(${xOffset}px)
-                        translateY(${yOffset}px)
-                        rotate(${rotation}deg)
-                        scale(${1 - Math.abs(offset) * 0.1})
-                      `,
+                      transform: `translateX(${xOffset}px) scale(${1 - Math.abs(offset) * 0.08})`,
                       zIndex: 10 - Math.abs(offset),
-                      opacity: 1 - Math.abs(offset) * 0.35,
-                      filter: offset !== 0 ? "brightness(0.85)" : "none",
-                      transformOrigin: "center bottom",
+                      opacity: 1 - Math.abs(offset) * 0.3,
+                      filter: offset !== 0 ? "brightness(0.9)" : "none",
                     }}
                     onClick={() => setCurrentPreviewIndex(index)}
                   >
@@ -656,7 +628,7 @@ export default function Home() {
                 }}
               />
             </div>
-            <p className="text-center text-sm text-gray-500 mt-2">
+            <p className="text-center text-sm text-gray-700 mt-2">
               {currentPreviewIndex + 1} / {appScreenshots.length}
             </p>
           </div>
@@ -672,14 +644,13 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Ready to Protect Yourself?
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Join thousands of renters who won't sign a lease without AI checking
-            it first.
+          <p className="text-xl text-gray-700 mb-8">
+            Don{"'"}t sign a lease without AI checking it first.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="https://apps.apple.com"
-              className="bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-800 transition inline-flex items-center justify-center"
+              className="bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-800 transition inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
             >
               <svg
                 className="w-6 h-6 mr-2"
@@ -692,7 +663,7 @@ export default function Home() {
             </a>
             <a
               href="https://play.google.com"
-              className="bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-800 transition inline-flex items-center justify-center"
+              className="bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-800 transition inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
             >
               <svg
                 className="w-6 h-6 mr-2"
@@ -708,7 +679,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-gray-400 py-6 overflow-hidden border-t border-gray-700">
+      <footer className="bg-black text-gray-300 py-6 overflow-hidden border-t border-gray-700">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid md:grid-cols-3 gap-8 justify-items-center text-center">
             <div>
@@ -720,10 +691,7 @@ export default function Home() {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#preview"
-                    className="hover:text-white transition"
-                  >
+                  <a href="#preview" className="hover:text-white transition">
                     How It Works
                   </a>
                 </li>
@@ -774,8 +742,8 @@ export default function Home() {
             <Image
               src="/HLogo2.png"
               alt="Lease Decoder Logo"
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               className="object-contain"
             />
           </div>
@@ -804,24 +772,6 @@ export default function Home() {
   );
 }
 
-function FeatureCard({
-  icon,
-  title,
-  description,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-      <div className="mb-4">{icon}</div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
-    </div>
-  );
-}
-
 function Testimonial({
   quote,
   author,
@@ -832,13 +782,15 @@ function Testimonial({
   location: string;
 }) {
   return (
-    <div className="bg-white p-8 rounded-2xl">
-      <div className="text-red-500 text-4xl mb-4">"</div>
-      <p className="text-gray-700 mb-6">{quote}</p>
-      <div>
-        <p className="font-semibold text-gray-900">{author}</p>
-        <p className="text-sm text-gray-500">{location}</p>
+    <article className="bg-white p-8 rounded-2xl">
+      <div className="text-red-500 text-4xl mb-4" aria-hidden="true">
+        {'"'}
       </div>
-    </div>
+      <blockquote className="text-gray-700 mb-6">{quote}</blockquote>
+      <footer>
+        <p className="font-semibold text-gray-900">{author}</p>
+        <p className="text-sm text-gray-700">{location}</p>
+      </footer>
+    </article>
   );
 }
