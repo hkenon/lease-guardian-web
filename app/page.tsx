@@ -272,7 +272,7 @@ export default function Home() {
         id="main-content"
         className="relative h-[100svh] flex flex-col bg-white overflow-hidden"
       >
-        <div className="flex-1 flex flex-col justify-center pt-20 md:pt-8 landscape:pt-12 min-h-0">
+        <div className="flex-1 flex flex-col justify-center min-h-0">
           {/* Quote */}
           <div className="text-center mb-4 md:mb-8 px-6 flex-shrink-0">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-2 md:mb-3">
@@ -295,7 +295,7 @@ export default function Home() {
               {[...bannerImages, ...bannerImages].map((item, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-64 h-72 md:w-80 md:h-96 mx-2 rounded-2xl overflow-hidden relative"
+                  className="flex-shrink-0 w-[45vw] h-[35vh] md:w-[25vw] md:h-[40vh] mx-2 rounded-2xl overflow-hidden relative"
                   style={{ backgroundColor: item.color }}
                 >
                   <Image
@@ -321,15 +321,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* See How It Works - Bottom of viewport */}
-        <div className="pb-6 text-center flex-shrink-0">
-          <a
-            href="#preview"
-            className="inline-block text-gray-900 px-8 py-3 text-lg font-semibold hover:text-gray-600 transition animate-bounce"
-          >
-            See How It Works
-          </a>
-        </div>
       </section>
 
       {/* Features Section - Full Width Grid */}
