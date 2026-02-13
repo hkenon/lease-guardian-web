@@ -270,15 +270,15 @@ export default function Home() {
       {/* Hero Section */}
       <section
         id="main-content"
-        className="relative h-[100svh] flex flex-col bg-white overflow-hidden"
+        className="relative min-h-fit md:h-[100svh] flex flex-col bg-white overflow-hidden py-6 md:py-0"
       >
-        <div className="flex-1 flex flex-col justify-start md:justify-center min-h-0 pt-14 md:pt-0">
+        <div className="flex-1 flex flex-col justify-center min-h-0 pt-14 md:pt-0">
           {/* Quote */}
           <div className="text-center mb-2 md:mb-8 px-4 md:px-6 flex-shrink-0">
-            <h1 className="text-xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-1 md:mb-3 leading-tight">
+            <h1 className="text-lg landscape:text-base md:text-5xl lg:text-6xl font-bold text-gray-900 mb-1 md:mb-3 leading-tight">
               {'"'}Understand your lease before it costs you.{'"'}
             </h1>
-            <p className="text-sm md:text-lg text-gray-700">
+            <p className="text-xs landscape:text-xs md:text-lg text-gray-700">
               Upload your lease and get instant, plain-English explanations of
               the fine print.
             </p>
@@ -295,7 +295,7 @@ export default function Home() {
               {[...bannerImages, ...bannerImages].map((item, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-[40vw] h-[20vh] md:w-[25vw] md:h-[40vh] mx-2 rounded-2xl overflow-hidden relative"
+                  className="flex-shrink-0 w-[40vw] h-[20vh] landscape:h-[35vh] md:w-[25vw] md:h-[40vh] mx-2 rounded-2xl overflow-hidden relative"
                   style={{ backgroundColor: item.color }}
                 >
                   <Image
@@ -313,7 +313,7 @@ export default function Home() {
 
           {/* Subtext */}
           <div className="text-center px-4 md:px-6 flex-shrink-0">
-            <p className="text-sm md:text-2xl text-gray-700 max-w-3xl mx-auto leading-snug">
+            <p className="text-xs landscape:text-xs md:text-2xl text-gray-700 max-w-3xl mx-auto leading-snug">
               AI-powered lease analysis that protects you from hidden traps,
               unfair terms, and costly surprises. Know what you{"'"}re signing
               before it{"'"}s too late.
@@ -321,9 +321,9 @@ export default function Home() {
           </div>
 
           {/* See How It Works Link */}
-          <div className="text-center mt-4 md:mt-6 flex-shrink-0">
+          <div className="text-center mt-3 md:mt-6 flex-shrink-0">
             <a
-              href="#features"
+              href="#how-it-works"
               className="text-xs md:text-sm text-gray-500 hover:text-gray-700 transition-colors"
             >
               See How It Works ↓
