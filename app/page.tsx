@@ -274,18 +274,18 @@ export default function Home() {
       >
         <div className="flex-1 flex flex-col justify-center min-h-0 pt-14 md:pt-0">
           {/* Quote */}
-          <div className="text-center mb-2 md:mb-8 px-4 md:px-6 flex-shrink-0">
-            <h1 className="text-xl landscape:text-lg md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-4 leading-tight">
+          <div className="text-center mb-4 md:mb-8 px-4 md:px-6 flex-shrink-0">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
               {'"'}Understand your lease before it costs you.{'"'}
             </h1>
-            <p className="text-sm landscape:text-sm md:text-xl text-gray-700">
+            <p className="text-xl text-gray-700">
               Upload your lease and get instant, plain-English explanations of
               the fine print.
             </p>
           </div>
 
           {/* Moving Banner - Full viewport width */}
-          <div className="relative w-screen overflow-hidden mb-2 md:mb-6 flex-shrink-0">
+          <div className="relative w-screen overflow-hidden mb-4 md:mb-6 flex-shrink-0">
             {/* Gradient masks for smooth edges */}
             <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
@@ -295,7 +295,7 @@ export default function Home() {
               {[...bannerImages, ...bannerImages].map((item, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-[40vw] h-[20vh] landscape:h-[35vh] md:w-[25vw] md:h-[40vh] mx-2 rounded-2xl overflow-hidden relative"
+                  className="flex-shrink-0 w-[30vw] h-[30vh] mx-2 rounded-2xl overflow-hidden relative"
                   style={{ backgroundColor: item.color }}
                 >
                   <Image
@@ -313,7 +313,7 @@ export default function Home() {
 
           {/* Subtext */}
           <div className="text-center px-4 md:px-6 flex-shrink-0">
-            <p className="text-sm landscape:text-sm md:text-xl text-gray-700 max-w-3xl mx-auto leading-snug">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-snug">
               AI-powered lease analysis that protects you from hidden traps,
               unfair terms, and costly surprises. Know what you{"'"}re signing
               before it{"'"}s too late.
