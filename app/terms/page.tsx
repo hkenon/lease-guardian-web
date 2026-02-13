@@ -20,10 +20,7 @@ export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-white">
       {/* Sticky Logo - always visible */}
-      <Link
-        href="/"
-        className="fixed top-5 left-6 md:left-10 z-[60]"
-      >
+      <Link href="/" className="fixed top-5 left-6 md:left-10 z-[60]">
         <Image
           src="/TPLogo.png"
           alt="Lease Decoder Logo"
@@ -35,21 +32,15 @@ export default function TermsOfService() {
 
       {/* Header */}
       <header
-        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-full ${
+        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-md ${
           isMobileMenuOpen
             ? "bg-transparent backdrop-blur-none"
             : "backdrop-blur-md bg-white/80"
-        } ${
-          isScrolled
-            ? "opacity-0 pointer-events-none"
-            : "opacity-100"
-        }`}
+        } ${isScrolled ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       >
         <nav className="px-6 md:px-12 py-4 flex justify-between items-center">
-          <div className="w-[55px]">
-            {/* Spacer for logo */}
-          </div>
-          <div className="hidden md:flex space-x-8 flex-1 justify-center">
+          <div className="w-[55px]">{/* Spacer for logo */}</div>
+          <div className="hidden md:flex flex-1 justify-evenly items-center">
             <Link
               href="/#features"
               className="text-gray-900 hover:text-gray-600 transition-all duration-300"
@@ -267,9 +258,9 @@ export default function TermsOfService() {
               5. Intellectual Property
             </h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Lease Decoder, including all content, features, and
-              functionality, is owned by us and protected by copyright,
-              trademark, and other intellectual property laws.
+              Lease Decoder, including all content, features, and functionality,
+              is owned by us and protected by copyright, trademark, and other
+              intellectual property laws.
             </p>
             <p className="text-gray-700 leading-relaxed">
               You retain ownership of documents you upload. By using the
@@ -430,18 +421,19 @@ export default function TermsOfService() {
               <h3 className="text-white font-semibold mb-4">Product</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link href="/#features" className="hover:text-white transition">
+                  <Link
+                    href="/#features"
+                    className="hover:text-white transition"
+                  >
                     Features
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#how-it-works" className="hover:text-white transition">
+                  <Link
+                    href="/#how-it-works"
+                    className="hover:text-white transition"
+                  >
                     How It Works
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#download" className="hover:text-white transition">
-                    Download
                   </Link>
                 </li>
               </ul>
@@ -491,8 +483,8 @@ export default function TermsOfService() {
             <Image
               src="/HLogo2.png"
               alt="Lease Decoder Logo"
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               className="object-contain"
             />
           </div>

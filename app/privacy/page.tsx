@@ -20,10 +20,7 @@ export default function PrivacyPolicy() {
   return (
     <main className="min-h-screen bg-white">
       {/* Sticky Logo - always visible */}
-      <Link
-        href="/"
-        className="fixed top-5 left-6 md:left-10 z-[60]"
-      >
+      <Link href="/" className="fixed top-5 left-6 md:left-10 z-[60]">
         <Image
           src="/TPLogo.png"
           alt="Lease Decoder Logo"
@@ -35,20 +32,14 @@ export default function PrivacyPolicy() {
 
       {/* Header - matching main page */}
       <header
-        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-full ${
+        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-md ${
           isMobileMenuOpen
             ? "bg-transparent backdrop-blur-none"
             : "backdrop-blur-md bg-white/80"
-        } ${
-          isScrolled
-            ? "opacity-0 pointer-events-none"
-            : "opacity-100"
-        }`}
+        } ${isScrolled ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       >
         <nav className="px-6 md:px-12 py-4 flex justify-between items-center">
-          <div className="w-[55px]">
-            {/* Spacer for logo */}
-          </div>
+          <div className="w-[55px]">{/* Spacer for logo */}</div>
           <div className="hidden md:flex flex-1 justify-evenly items-center">
             <Link
               href="/#features"
@@ -497,14 +488,6 @@ export default function PrivacyPolicy() {
                     How It Works
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/#download"
-                    className="hover:text-white transition"
-                  >
-                    Download
-                  </Link>
-                </li>
               </ul>
             </div>
             <div>
@@ -552,8 +535,8 @@ export default function PrivacyPolicy() {
             <Image
               src="/HLogo2.png"
               alt="Lease Decoder Logo"
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               className="object-contain"
             />
           </div>

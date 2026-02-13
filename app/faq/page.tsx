@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mkgdaalw";
 interface FAQItem {
   question: string;
   answer: string;
@@ -100,7 +101,8 @@ const faqs: { category: string; items: FAQItem[] }[] = [
     category: "Troubleshooting",
     items: [
       {
-        question: "My document isn't being analyzed correctly. What should I do?",
+        question:
+          "My document isn't being analyzed correctly. What should I do?",
         answer:
           "Ensure your document is clear, well-lit (for photos), and in a supported format. If issues persist, try re-uploading or contact support with details about the problem.",
       },
@@ -118,37 +120,45 @@ const faqs: { category: string; items: FAQItem[] }[] = [
   },
 ];
 
-function FAQAccordion({ item }: { item: FAQItem }) {
+function FAQAccordion({ item, id }: { item: FAQItem; id: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="border-b border-gray-200">
-      <button
-        className="w-full py-5 flex justify-between items-center text-left hover:bg-gray-50 transition-colors px-2 -mx-2 rounded-lg"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span className="text-lg font-medium text-gray-900 pr-4">
-          {item.question}
-        </span>
-        <ChevronDownIcon
-          className={`w-5 h-5 text-gray-500 flex-shrink-0 transition-transform duration-200 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
-      </button>
+      <h3>
+        <button
+          className="w-full py-5 flex justify-between items-center text-left hover:bg-gray-50 transition-colors px-2 -mx-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-controls={`faq-answer-${id}`}
+          id={`faq-question-${id}`}
+        >
+          <span className="text-lg font-medium text-gray-900 pr-4">
+            {item.question}
+          </span>
+          <ChevronDownIcon
+            className={`w-5 h-5 text-gray-700 flex-shrink-0 transition-transform duration-200 ${
+              isOpen ? "rotate-180" : ""
+            }`}
+            aria-hidden="true"
+          />
+        </button>
+      </h3>
       <div
+        id={`faq-answer-${id}`}
+        role="region"
+        aria-labelledby={`faq-question-${id}`}
         className={`overflow-hidden transition-all duration-200 ${
           isOpen ? "max-h-96 pb-5" : "max-h-0"
         }`}
       >
-        <p className="text-gray-600 leading-relaxed">{item.answer}</p>
+        <p className="text-gray-700 leading-relaxed">{item.answer}</p>
       </div>
     </div>
   );
 }
 
 export default function FAQPage() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -156,24 +166,30 @@ export default function FAQPage() {
     subject: "",
     message: "",
   });
-  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [formStatus, setFormStatus] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus("sending");
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setFormStatus("sent");
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormStatus("sent");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setFormStatus("error");
+      }
     } catch {
       setFormStatus("error");
     }
@@ -181,67 +197,64 @@ export default function FAQPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Sticky Logo - always visible */}
-      <Link
-        href="/"
-        className="fixed top-5 left-6 md:left-10 z-[60]"
+      {/* Skip to main content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-black focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
       >
-        <Image
-          src="/TPLogo.png"
-          alt="Lease Decoder Logo"
-          width={50}
-          height={50}
-          className="object-contain"
-        />
-      </Link>
+        Skip to main content
+      </a>
 
       {/* Header */}
       <header
-        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-full ${
+        className={`mx-4 mt-4 rounded-md ${
           isMobileMenuOpen
-            ? "bg-transparent backdrop-blur-none"
-            : "backdrop-blur-md bg-white/80"
-        } ${
-          isScrolled
-            ? "opacity-0 pointer-events-none"
-            : "opacity-100"
+            ? "bg-transparent"
+            : "backdrop-blur-md bg-white/70"
         }`}
       >
         <nav className="px-6 md:px-12 py-4 flex justify-between items-center">
-          <div className="w-[55px]">
-            {/* Spacer for logo */}
-          </div>
-          <div className="hidden md:flex space-x-8 flex-1 justify-center">
+          <Link href="/">
+            <Image
+              src="/TPLogo.png"
+              alt="Lease Decoder Logo"
+              width={45}
+              height={45}
+              className="object-contain"
+            />
+          </Link>
+          <div className="hidden md:flex flex-1 justify-evenly items-center">
             <Link
               href="/#features"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300"
+              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
             >
               Features
             </Link>
             <Link
               href="/#how-it-works"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300"
+              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
             >
               Overview
             </Link>
             <Link
               href="/#testimonials"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300"
+              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
             >
               Testimonials
             </Link>
             <Image
               src="/HLogoB.png"
-              alt="Logo"
+              alt=""
               width={24}
               height={24}
               className="object-contain"
+              aria-hidden="true"
             />
           </div>
           <div className="flex items-center gap-4">
             <Link
               href="/#download"
-              className="hidden md:inline-block bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300"
+              className="hidden md:inline-block bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
             >
               Download
             </Link>
@@ -249,7 +262,9 @@ export default function FAQPage() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-gray-900"
-              aria-label="Toggle menu"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               <svg
                 className="w-6 h-6"
@@ -284,10 +299,15 @@ export default function FAQPage() {
           isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsMobileMenuOpen(false)}
+        aria-hidden="true"
       />
 
       {/* Mobile Menu */}
       <div
+        id="mobile-menu"
+        role="dialog"
+        aria-label="Navigation menu"
+        aria-hidden={!isMobileMenuOpen}
         className={`fixed top-0 right-0 h-full w-64 bg-white z-50 md:hidden transform transition-transform duration-300 ease-out shadow-xl ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -343,12 +363,12 @@ export default function FAQPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-white">
+      <section id="main-content" className="pt-32 pb-16 bg-white">
         <div className="container mx-auto px-6 max-w-4xl">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
             Frequently Asked Questions
           </h1>
-          <p className="text-xl text-gray-500">
+          <p className="text-xl text-gray-700">
             Everything you need to know about Lease Decoder
           </p>
         </div>
@@ -364,12 +384,11 @@ export default function FAQPage() {
               </h2>
               <div className="bg-white rounded-2xl">
                 {category.items.map((item, itemIndex) => (
-                  <FAQAccordion key={itemIndex} item={item} />
+                  <FAQAccordion key={itemIndex} item={item} id={`${categoryIndex}-${itemIndex}`} />
                 ))}
               </div>
             </div>
           ))}
-
         </div>
       </section>
 
@@ -380,8 +399,9 @@ export default function FAQPage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Still have questions?
             </h2>
-            <p className="text-gray-600">
-              Send us a message and we&apos;ll get back to you as soon as possible.
+            <p className="text-gray-700">
+              Send us a message and we&apos;ll get back to you as soon as
+              possible.
             </p>
           </div>
 
@@ -402,7 +422,7 @@ export default function FAQPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition text-gray-900"
                   placeholder="Your name"
                 />
               </div>
@@ -421,7 +441,7 @@ export default function FAQPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition text-gray-900"
                   placeholder="your@email.com"
                 />
               </div>
@@ -442,8 +462,8 @@ export default function FAQPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, subject: e.target.value })
                 }
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition"
-                placeholder="What&apos;s this about?"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition text-gray-900"
+                placeholder="What's this about?"
               />
             </div>
 
@@ -462,7 +482,7 @@ export default function FAQPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, message: e.target.value })
                 }
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition resize-none text-gray-900"
                 placeholder="How can we help you?"
               />
             </div>
@@ -470,7 +490,7 @@ export default function FAQPage() {
             <button
               type="submit"
               disabled={formStatus === "sending"}
-              className="w-full bg-gray-900 text-white py-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="w-full bg-gray-900 text-white py-4 rounded-lg font-semibold hover:bg-white hover:text-black border border-transparent hover:border-black transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
               {formStatus === "sending"
                 ? "Sending..."
@@ -488,10 +508,7 @@ export default function FAQPage() {
             {formStatus === "error" && (
               <p className="mt-4 text-center text-red-600">
                 Something went wrong. Please try again or email us directly at{" "}
-                <a
-                  href="mailto:support@leasedecoder.com"
-                  className="underline"
-                >
+                <a href="mailto:support@leasedecoder.com" className="underline">
                   support@leasedecoder.com
                 </a>
               </p>
@@ -501,7 +518,7 @@ export default function FAQPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-gray-400 py-6 overflow-hidden border-t border-gray-700">
+      <footer className="bg-black text-gray-300 py-6 overflow-hidden border-t border-gray-700">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid md:grid-cols-3 gap-8 justify-items-center text-center">
             <div>
@@ -521,14 +538,6 @@ export default function FAQPage() {
                     className="hover:text-white transition"
                   >
                     How It Works
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/#download"
-                    className="hover:text-white transition"
-                  >
-                    Download
                   </Link>
                 </li>
               </ul>
@@ -552,7 +561,10 @@ export default function FAQPage() {
               <h3 className="text-white font-semibold mb-4">Support</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link href="/faq" className="hover:text-white transition font-semibold text-white">
+                  <Link
+                    href="/faq"
+                    className="hover:text-white transition font-semibold text-white"
+                  >
                     FAQ
                   </Link>
                 </li>
@@ -578,8 +590,8 @@ export default function FAQPage() {
             <Image
               src="/HLogo2.png"
               alt="Lease Decoder Logo"
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               className="object-contain"
             />
           </div>
