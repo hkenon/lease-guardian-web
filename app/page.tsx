@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ShieldCheckIcon,
   MagnifyingGlassIcon,
@@ -13,6 +13,27 @@ import {
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0);
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // Scrolling down & past 80px — hide
+        setShowHeader(false);
+      } else {
+        // Scrolling up — show
+        setShowHeader(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const appScreenshots = [
     {
@@ -102,7 +123,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
+    <main className="min-h-screen bg-white overflow-x-hidden pt-20">
       {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
@@ -113,7 +134,9 @@ export default function Home() {
 
       {/* Header */}
       <header
-        className={`mx-4 mt-4 rounded-md ${
+        className={`fixed top-0 left-0 right-0 z-50 mx-4 mt-4 rounded-md transition-transform duration-300 ${
+          showHeader ? "translate-y-0" : "-translate-y-full"
+        } ${
           isMobileMenuOpen ? "bg-transparent" : "backdrop-blur-md bg-white/70"
         }`}
       >
