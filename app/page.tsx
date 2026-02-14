@@ -295,6 +295,7 @@ export default function Home() {
         id="main-content"
         className="relative min-h-fit md:h-[calc(100svh-5rem)] flex flex-col bg-white overflow-hidden pt-4 pb-6 md:py-0"
       >
+        {/* Main content - centered */}
         <div className="flex-1 flex flex-col justify-center min-h-0 landscape:justify-start landscape:pt-2">
           {/* Quote */}
           <div className="text-center mb-4 landscape:mb-2 md:mb-8 px-4 md:px-6 flex-shrink-0">
@@ -342,18 +343,17 @@ export default function Home() {
               before it{"'"}s too late.
             </p>
           </div>
-
-          {/* See How It Works Link */}
-          <div className="text-center mt-6 landscape:mt-3 md:mt-12 flex-shrink-0 pb-4 landscape:pb-2">
-            <a
-              href="#how-it-works"
-              className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
-            >
-              See How It Works ↓
-            </a>
-          </div>
         </div>
 
+        {/* See How It Works Link - pinned to bottom on desktop */}
+        <div className="text-center mt-6 landscape:mt-3 md:mt-0 flex-shrink-0 pb-4 landscape:pb-2 md:pb-8">
+          <a
+            href="#how-it-works"
+            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            See How It Works ↓
+          </a>
+        </div>
       </section>
 
       {/* Features Section - Full Width Grid */}
