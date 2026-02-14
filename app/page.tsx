@@ -346,9 +346,9 @@ export default function Home() {
         </div>
 
         {/* See How It Works Link - pinned to bottom on desktop */}
-        <div className="text-center mt-6 landscape:mt-3 md:mt-0 flex-shrink-0 pb-4 landscape:pb-2 md:pb-8">
+        <div className="text-center mt-6 landscape:mt-8 md:mt-0 flex-shrink-0 pb-4 landscape:pb-4 md:pb-8">
           <a
-            href="#how-it-works"
+            href="#preview"
             className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
           >
             See How It Works ↓
