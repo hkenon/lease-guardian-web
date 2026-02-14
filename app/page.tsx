@@ -270,7 +270,7 @@ export default function Home() {
         id="main-content"
         className="relative min-h-[100svh] flex flex-col bg-white"
       >
-        <div className="flex-1 flex flex-col justify-center pt-20 md:pt-8 landscape:pt-12">
+        <div className="flex-1 flex flex-col justify-center pt-16 md:pt-4 landscape:pt-8">
           {/* Quote */}
           <div className="text-center mb-8 px-6">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3">
