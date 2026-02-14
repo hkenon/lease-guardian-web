@@ -319,15 +319,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* See How It Works - Bottom of viewport */}
-        <div className="pb-4 text-center mt-auto">
-          <a
-            href="#preview"
-            className="inline-block text-gray-900 px-8 py-4 text-lg font-semibold hover:text-gray-600 transition animate-bounce"
-          >
-            See How It Works
-          </a>
-        </div>
       </section>
 
       {/* Features Section - Full Width Grid */}
