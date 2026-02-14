@@ -293,12 +293,12 @@ export default function Home() {
       {/* Hero Section */}
       <section
         id="main-content"
-        className="relative min-h-fit md:h-[100svh] flex flex-col bg-white overflow-hidden py-6 md:py-0"
+        className="relative min-h-fit md:h-[calc(100svh-5rem)] flex flex-col bg-white overflow-hidden pt-4 pb-6 md:py-0"
       >
-        <div className="flex-1 flex flex-col justify-center min-h-0 pt-14 md:pt-0">
+        <div className="flex-1 flex flex-col justify-center min-h-0 landscape:justify-start landscape:pt-2">
           {/* Quote */}
-          <div className="text-center mb-4 md:mb-8 px-4 md:px-6 flex-shrink-0">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+          <div className="text-center mb-4 landscape:mb-2 md:mb-8 px-4 md:px-6 flex-shrink-0">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 landscape:mb-2 leading-tight">
               {'"'}Understand your lease before it costs you.{'"'}
             </h1>
             <p className="text-xl text-gray-700">
@@ -308,7 +308,7 @@ export default function Home() {
           </div>
 
           {/* Moving Banner - Full viewport width */}
-          <div className="relative w-screen overflow-hidden mb-4 md:mb-6 flex-shrink-0">
+          <div className="relative w-screen overflow-hidden mb-4 landscape:mb-2 md:mb-6 flex-shrink-0">
             {/* Gradient masks for smooth edges */}
             <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
@@ -318,7 +318,7 @@ export default function Home() {
               {[...bannerImages, ...bannerImages].map((item, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-[30vw] h-[30vh] mx-2 rounded-2xl overflow-hidden relative"
+                  className="flex-shrink-0 w-[30vw] h-[30vh] landscape:h-[25vh] mx-2 rounded-2xl overflow-hidden relative"
                   style={{ backgroundColor: item.color }}
                 >
                   <Image
@@ -335,7 +335,7 @@ export default function Home() {
           </div>
 
           {/* Subtext */}
-          <div className="text-center px-4 md:px-6 flex-shrink-0">
+          <div className="text-center px-4 md:px-6 flex-shrink-0 landscape:hidden md:landscape:block">
             <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-snug">
               AI-powered lease analysis that protects you from hidden traps,
               unfair terms, and costly surprises. Know what you{"'"}re signing
@@ -344,7 +344,7 @@ export default function Home() {
           </div>
 
           {/* See How It Works Link */}
-          <div className="text-center mt-8 md:mt-12 flex-shrink-0">
+          <div className="text-center mt-6 landscape:mt-3 md:mt-12 flex-shrink-0 pb-4 landscape:pb-2">
             <a
               href="#how-it-works"
               className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
