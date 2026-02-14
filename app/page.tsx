@@ -344,10 +344,10 @@ export default function Home() {
           </div>
 
           {/* See How It Works Link */}
-          <div className="text-center mt-3 md:mt-6 flex-shrink-0">
+          <div className="text-center mt-8 md:mt-12 flex-shrink-0">
             <a
               href="#how-it-works"
-              className="text-xs md:text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
             >
               See How It Works ↓
             </a>
