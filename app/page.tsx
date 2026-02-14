@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   ShieldCheckIcon,
   MagnifyingGlassIcon,
@@ -13,27 +13,6 @@ import {
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0);
-  const [showHeader, setShowHeader] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        // Scrolling down & past 80px — hide
-        setShowHeader(false);
-      } else {
-        // Scrolling up — show
-        setShowHeader(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
 
   const appScreenshots = [
     {
@@ -123,7 +102,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden pt-20">
+    <main className="min-h-screen bg-white overflow-x-hidden">
       {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
@@ -134,9 +113,7 @@ export default function Home() {
 
       {/* Header */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 mx-4 mt-4 rounded-md transition-transform duration-300 ${
-          showHeader ? "translate-y-0" : "-translate-y-full"
-        } ${
+        className={`mx-4 mt-4 rounded-md ${
           isMobileMenuOpen ? "bg-transparent" : "backdrop-blur-md bg-white/70"
         }`}
       >
@@ -170,14 +147,12 @@ export default function Home() {
             >
               Testimonials
             </a>
-            <Image
-              src="/HLogoB.png"
-              alt=""
-              width={24}
-              height={24}
-              className="object-contain"
-              aria-hidden="true"
-            />
+            <a
+              href="#preview"
+              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
+            >
+              How It Works
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <a
@@ -293,23 +268,22 @@ export default function Home() {
       {/* Hero Section */}
       <section
         id="main-content"
-        className="relative min-h-fit md:h-[calc(100svh-5rem)] flex flex-col bg-white overflow-hidden pt-4 pb-6 md:py-0"
+        className="relative min-h-[100svh] flex flex-col bg-white"
       >
-        {/* Main content - centered */}
-        <div className="flex-1 flex flex-col justify-center min-h-0 landscape:justify-start landscape:pt-2">
+        <div className="flex-1 flex flex-col justify-center pt-28 md:pt-16 landscape:pt-20">
           {/* Quote */}
-          <div className="text-center mb-4 landscape:mb-2 md:mb-8 px-4 md:px-6 flex-shrink-0">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 landscape:mb-2 leading-tight">
+          <div className="text-center mb-8 px-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3">
               {'"'}Understand your lease before it costs you.{'"'}
             </h1>
-            <p className="text-xl text-gray-700">
+            <p className="text-lg text-gray-700">
               Upload your lease and get instant, plain-English explanations of
               the fine print.
             </p>
           </div>
 
           {/* Moving Banner - Full viewport width */}
-          <div className="relative w-screen overflow-hidden mb-4 landscape:mb-2 md:mb-6 flex-shrink-0">
+          <div className="relative w-screen overflow-hidden mb-12">
             {/* Gradient masks for smooth edges */}
             <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
@@ -319,7 +293,7 @@ export default function Home() {
               {[...bannerImages, ...bannerImages].map((item, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-[30vw] h-[30vh] landscape:h-[25vh] mx-2 rounded-2xl overflow-hidden relative"
+                  className="flex-shrink-0 w-80 h-96 mx-2 rounded-2xl overflow-hidden relative"
                   style={{ backgroundColor: item.color }}
                 >
                   <Image
@@ -336,8 +310,8 @@ export default function Home() {
           </div>
 
           {/* Subtext */}
-          <div className="text-center px-4 md:px-6 flex-shrink-0 landscape:hidden md:landscape:block">
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-snug">
+          <div className="text-center px-6">
+            <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto">
               AI-powered lease analysis that protects you from hidden traps,
               unfair terms, and costly surprises. Know what you{"'"}re signing
               before it{"'"}s too late.
@@ -345,13 +319,13 @@ export default function Home() {
           </div>
         </div>
 
-        {/* See How It Works Link - pinned to bottom on desktop */}
-        <div className="text-center mt-6 landscape:mt-8 md:mt-0 flex-shrink-0 pb-4 landscape:pb-4 md:pb-8">
+        {/* See How It Works - Bottom of viewport */}
+        <div className="pb-4 text-center mt-auto">
           <a
             href="#preview"
-            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+            className="inline-block text-gray-900 px-8 py-4 text-lg font-semibold hover:text-gray-600 transition animate-bounce"
           >
-            See How It Works ↓
+            See How It Works
           </a>
         </div>
       </section>
