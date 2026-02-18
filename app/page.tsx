@@ -139,14 +139,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Skip to main content link for accessibility */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-black focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
-      >
-        Skip to main content
-      </a>
-
       {/* Header */}
       <header
         className={`sticky top-0 z-50 transition-transform duration-300 ${
