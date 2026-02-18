@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ShieldCheckIcon,
   MagnifyingGlassIcon,
@@ -13,32 +13,68 @@ import {
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  // Headroom-style navbar: hide on scroll down, show on scroll up
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollThreshold = 10; // Minimum scroll before triggering
+
+      // Always show navbar at the very top
+      if (currentScrollY < 50) {
+        setIsNavVisible(true);
+        setLastScrollY(currentScrollY);
+        return;
+      }
+
+      // Only trigger if scrolled more than threshold
+      if (Math.abs(currentScrollY - lastScrollY) < scrollThreshold) {
+        return;
+      }
+
+      // Scrolling down - hide navbar
+      if (currentScrollY > lastScrollY) {
+        setIsNavVisible(false);
+      }
+      // Scrolling up - show navbar
+      else {
+        setIsNavVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const appScreenshots = [
     {
-      src: "/IMG_3270.PNG",
+      src: "/UploadScreenshot.png",
       alt: "App Screenshot - Upload",
-      label: "Home.",
-    },
-    {
-      src: "/IMG_3272.PNG",
-      alt: "App Screenshot - Analysis",
       label: "Upload.",
     },
     {
-      src: "/IMG_3273.PNG",
-      alt: "App Screenshot - Report",
+      src: "/AnalysisScreenshot.png",
+      alt: "App Screenshot - Analysis",
       label: "Analyze.",
     },
     {
-      src: "/IMG_3274.PNG",
-      alt: "App Screenshot - Findings",
+      src: "/SaveScreenshot.png",
+      alt: "App Screenshot - Report",
       label: "Review/Save.",
     },
     {
-      src: "/IMG_3279.PNG",
+      src: "/Track.png",
+      alt: "App Screenshot - Findings",
+      label: "Track Analyses.",
+    },
+    {
+      src: "/Share:Delete.png",
       alt: "App Screenshot - Summary",
-      label: "Share/Delete",
+      label: "Share/Delete.",
     },
   ];
 
@@ -102,7 +138,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
+    <>
       {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
@@ -113,10 +149,13 @@ export default function Home() {
 
       {/* Header */}
       <header
-        className={`mx-4 mt-4 rounded-md ${
+        className={`sticky top-0 z-50 transition-transform duration-300 ${
+          isNavVisible ? "translate-y-0" : "-translate-y-full"
+        } ${
           isMobileMenuOpen ? "bg-transparent" : "backdrop-blur-md bg-white/70"
         }`}
       >
+        <div className="mx-4 pt-4">
         <nav className="px-6 md:px-12 py-4 flex justify-between items-center">
           <Link href="/">
             <Image
@@ -194,6 +233,7 @@ export default function Home() {
             </button>
           </div>
         </nav>
+        </div>
       </header>
 
       {/* Mobile Menu Overlay */}
@@ -265,6 +305,7 @@ export default function Home() {
         </div>
       </div>
 
+      <main className="min-h-screen bg-white overflow-x-hidden">
       {/* Hero Section */}
       <section
         id="main-content"
@@ -318,7 +359,6 @@ export default function Home() {
             </p>
           </div>
         </div>
-
       </section>
 
       {/* Features Section - Full Width Grid */}
@@ -757,7 +797,8 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </main>
+      </main>
+    </>
   );
 }
 

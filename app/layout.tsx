@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Lease Decoder- AI-Powered Lease Analysis App",
+  title: "Lease Decoder - AI-Powered Lease Analysis App",
   description:
     "Don't sign a lease until AI reads it. Lease Decoder protects you from hidden traps, unfair terms, and costly surprises in rental agreements. Free lease analysis app.",
   icons: {
