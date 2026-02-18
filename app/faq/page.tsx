@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mkgdaalw";
+
 interface FAQItem {
   question: string;
   answer: string;
@@ -159,7 +160,6 @@ function FAQAccordion({ item, id }: { item: FAQItem; id: string }) {
 }
 
 export default function FAQPage() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -197,173 +197,23 @@ export default function FAQPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Skip to main content link for accessibility */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-black focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
-      >
-        Skip to main content
-      </a>
-
-      {/* Header */}
-      <header
-        className={`mx-4 mt-4 rounded-md ${
-          isMobileMenuOpen
-            ? "bg-transparent"
-            : "backdrop-blur-md bg-white/70"
-        }`}
-      >
-        <nav className="px-6 md:px-12 py-4 flex justify-between items-center">
-          <Link href="/">
+      {/* Sticky Logo Header */}
+      <header className="sticky top-0 z-50 bg-white">
+        <div className="container mx-auto px-6 py-4">
+          <Link href="/" className="inline-block">
             <Image
               src="/TPLogo.png"
-              alt="Lease Decoder Logo"
+              alt="Lease Decoder - Back to Home"
               width={45}
               height={45}
               className="object-contain"
             />
           </Link>
-          <div className="hidden md:flex flex-1 justify-evenly items-center">
-            <Link
-              href="/#features"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
-            >
-              Features
-            </Link>
-            <Link
-              href="/#how-it-works"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
-            >
-              Overview
-            </Link>
-            <Link
-              href="/#testimonials"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 rounded"
-            >
-              Testimonials
-            </Link>
-            <Image
-              src="/HLogoB.png"
-              alt=""
-              width={24}
-              height={24}
-              className="object-contain"
-              aria-hidden="true"
-            />
-          </div>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/#download"
-              className="hidden md:inline-block bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
-            >
-              Download
-            </Link>
-            {/* Hamburger Menu Button - Mobile Only */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-gray-900"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                {isMobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
-        </nav>
+        </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
-      <div
-        className={`fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={() => setIsMobileMenuOpen(false)}
-        aria-hidden="true"
-      />
-
-      {/* Mobile Menu */}
-      <div
-        id="mobile-menu"
-        role="dialog"
-        aria-label="Navigation menu"
-        aria-hidden={!isMobileMenuOpen}
-        className={`fixed top-0 right-0 h-full w-64 bg-white z-50 md:hidden transform transition-transform duration-300 ease-out shadow-xl ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="p-6 pt-20">
-          <nav className="flex flex-col space-y-6">
-            <Link
-              href="/#features"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg text-gray-900 hover:text-gray-600 transition-colors"
-            >
-              Features
-            </Link>
-            <Link
-              href="/#how-it-works"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg text-gray-900 hover:text-gray-600 transition-colors"
-            >
-              Overview
-            </Link>
-            <Link
-              href="/#testimonials"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg text-gray-900 hover:text-gray-600 transition-colors"
-            >
-              Testimonials
-            </Link>
-            <Link
-              href="/#download"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg text-gray-900 hover:text-gray-600 transition-colors"
-            >
-              Download
-            </Link>
-            <div className="pt-4 border-t border-gray-200">
-              <Link
-                href="/privacy"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-gray-600 hover:text-gray-900 transition-colors mb-3"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Terms of Service
-              </Link>
-            </div>
-          </nav>
-        </div>
-      </div>
-
       {/* Hero Section */}
-      <section id="main-content" className="pt-32 pb-16 bg-white">
+      <section id="main-content" className="pt-16 pb-16 bg-white">
         <div className="container mx-auto px-6 max-w-4xl">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
             Frequently Asked Questions

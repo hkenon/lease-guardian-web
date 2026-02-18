@@ -2,177 +2,27 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 
 export default function PrivacyPolicy() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <main className="min-h-screen bg-white">
-      {/* Sticky Logo - always visible */}
-      <Link href="/" className="fixed top-5 left-6 md:left-10 z-[60]">
-        <Image
-          src="/TPLogo.png"
-          alt="Lease Decoder Logo"
-          width={50}
-          height={50}
-          className="object-contain"
-        />
-      </Link>
-
-      {/* Header - matching main page */}
-      <header
-        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-md ${
-          isMobileMenuOpen
-            ? "bg-transparent backdrop-blur-none"
-            : "backdrop-blur-md bg-white/80"
-        } ${isScrolled ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-      >
-        <nav className="px-6 md:px-12 py-4 flex justify-between items-center">
-          <div className="w-[55px]">{/* Spacer for logo */}</div>
-          <div className="hidden md:flex flex-1 justify-evenly items-center">
-            <Link
-              href="/#features"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300"
-            >
-              Features
-            </Link>
-            <Link
-              href="/#how-it-works"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300"
-            >
-              Overview
-            </Link>
-            <Link
-              href="/#testimonials"
-              className="text-gray-900 hover:text-gray-600 transition-all duration-300"
-            >
-              Testimonials
-            </Link>
+      {/* Sticky Logo Header */}
+      <header className="sticky top-0 z-50 bg-white">
+        <div className="container mx-auto px-6 py-4">
+          <Link href="/" className="inline-block">
             <Image
-              src="/HLogoB.png"
-              alt="Logo"
-              width={24}
-              height={24}
+              src="/TPLogo.png"
+              alt="Lease Decoder - Back to Home"
+              width={45}
+              height={45}
               className="object-contain"
             />
-          </div>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/#download"
-              className="hidden md:inline-block bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300"
-            >
-              Download
-            </Link>
-            {/* Hamburger Menu Button - Mobile Only */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-gray-900"
-              aria-label="Toggle menu"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                {isMobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
-        </nav>
+          </Link>
+        </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
-      <div
-        className={`fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={() => setIsMobileMenuOpen(false)}
-      />
-
-      {/* Mobile Menu */}
-      <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white z-50 md:hidden transform transition-transform duration-300 ease-out shadow-xl ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="p-6 pt-20">
-          <nav className="flex flex-col space-y-6">
-            <Link
-              href="/#features"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg text-gray-900 hover:text-gray-600 transition-colors"
-            >
-              Features
-            </Link>
-            <Link
-              href="/#how-it-works"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg text-gray-900 hover:text-gray-600 transition-colors"
-            >
-              Overview
-            </Link>
-            <Link
-              href="/#testimonials"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg text-gray-900 hover:text-gray-600 transition-colors"
-            >
-              Testimonials
-            </Link>
-            <Link
-              href="/#download"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg text-gray-900 hover:text-gray-600 transition-colors"
-            >
-              Download
-            </Link>
-            <div className="pt-4 border-t border-gray-200">
-              <Link
-                href="/privacy"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-gray-600 hover:text-gray-900 transition-colors mb-3 font-semibold"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Terms of Service
-              </Link>
-            </div>
-          </nav>
-        </div>
-      </div>
-
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-white">
+      <section className="pt-16 pb-16 bg-white">
         <div className="container mx-auto px-6 max-w-4xl">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
             Privacy Policy
@@ -465,7 +315,7 @@ export default function PrivacyPolicy() {
         </div>
       </section>
 
-      {/* Footer - matching main page */}
+      {/* Footer */}
       <footer className="bg-black text-gray-400 py-6 overflow-hidden border-t border-gray-700">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid md:grid-cols-3 gap-8 justify-items-center text-center">
