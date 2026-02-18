@@ -230,7 +230,7 @@ export default function Home() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/50 z-[60] md:hidden transition-opacity duration-300 ${
           isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsMobileMenuOpen(false)}
@@ -243,7 +243,7 @@ export default function Home() {
         role="dialog"
         aria-label="Navigation menu"
         aria-hidden={!isMobileMenuOpen}
-        className={`fixed top-0 right-0 h-full w-64 bg-white z-50 md:hidden transform transition-transform duration-300 ease-out shadow-xl ${
+        className={`fixed top-0 right-0 h-full w-64 bg-white z-[70] md:hidden transform transition-transform duration-300 ease-out shadow-xl ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
