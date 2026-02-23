@@ -141,10 +141,8 @@ export default function Home() {
     <>
       {/* Header */}
       <header
-        className={`sticky top-0 z-50 transition-transform duration-300 ${
+        className={`sticky top-0 z-50 bg-white border-b border-gray-100 transition-transform duration-300 ${
           isNavVisible ? "translate-y-0" : "-translate-y-full"
-        } ${
-          isMobileMenuOpen ? "bg-transparent" : "backdrop-blur-md bg-white/70"
         }`}
       >
         <div className="mx-4 pt-4">
@@ -670,7 +668,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://apps.apple.com"
+              href="https://apps.apple.com/us/app/lease-decoder/id6759229285"
               className="bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-800 transition inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
             >
               <svg
